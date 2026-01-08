@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>টিক-ট্যাক-টো গেম | বাংলাদেশি স্টাইলে | ফ্রি মোবাইল গেম</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<title>টিক-ট্যাক-টো গেম | বাংলাদেশি স্টাইলে</title>
     <meta name="description" content="টিক-ট্যাক-টো গেম খেলুন বাংলাদেশি স্টাইলে! বন্ধুর সাথে বা কম্পিউটারের সাথে খেলুন। আলাকার পোলাপানের জন্য মজার গেম।">
     <meta name="keywords" content="tic-tac-toe bangla, xo game, mobile game, free game, bangladeshi game, টিক ট্যাক টো, মোবাইল গেম">
     <meta name="author" content="Bangla Tic-Tac-Toe">
@@ -58,6 +58,8 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
+             overscroll-behavior-y: auto;
+    -webkit-overflow-scrolling: touch;
         }
         
         /* মূল কন্টেইনার */
@@ -1435,6 +1437,13 @@
                 // এখানে ইন্সটল বাটন দেখাতে পারেন
             });
         });
+
+    
+if (gameBoard) {
+    gameBoard.addEventListener('touchmove', (e) => {
+        if (e.scale !== 1) e.preventDefault();
+    }, { passive: false });
+}
     </script>
 </body>
 </html>
