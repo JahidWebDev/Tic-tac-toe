@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>টিক-ট্যাক-টো গেম | বাংলাদেশি স্টাইলে | ফ্রি মোবাইল গেম</title>
+    <meta name="description" content="টিক-ট্যাক-টো গেম খেলুন বাংলাদেশি স্টাইলে! বন্ধুর সাথে বা কম্পিউটারের সাথে খেলুন। আলাকার পোলাপানের জন্য মজার গেম।">
+    <meta name="keywords" content="tic-tac-toe bangla, xo game, mobile game, free game, bangladeshi game, টিক ট্যাক টো, মোবাইল গেম">
+    <meta name="author" content="Bangla Tic-Tac-Toe">
+    
+    <!-- Facebook Open Graph -->
+    <meta property="og:title" content="টিক-ট্যাক-টো গেম | বাংলাদেশি স্টাইলে">
+    <meta property="og:description" content="মোবাইলে টিক-ট্যাক-টো খেলুন! বন্ধুর সাথে মজা করুন।">
+    <meta property="og:type" content="website">
+    
+    <!-- iOS মেটা ট্যাগ -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#006A4E">
+    
+    <style>
+        /* বাংলাদেশি থিম - উন্নত মোবাইল ডিজাইন */
+        :root {
+            --bangla-red: #E21818;
+            --bangla-green: #006A4E;
+            --bangla-dark-green: #004d36;
+            --bangla-gold: #FFD700;
+            --bangla-light-gold: #FFF8DC;
+            --bangla-cream: #FFF8E1;
+            --bangla-blue: #1E88E5;
+            --bangla-light-blue: #E3F2FD;
+            --bangla-orange: #FF8A00;
+            --bangla-purple: #8A2BE2;
+            --bangla-gray: #f5f5f5;
+            --bangla-dark: #2C3E50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        html {
+            height: 100%;
+            overflow-x: hidden;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 10px;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* মূল কন্টেইনার */
+        .mobile-wrapper {
+            flex: 1;
+            max-width: 100%;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        /* বাংলাদেশি হেডার - মোবাইল অপ্টিমাইজড */
+        .bangla-header {
+            background: linear-gradient(135deg, var(--bangla-green) 0%, var(--bangla-dark-green) 100%);
+            color: white;
+            text-align: center;
+            padding: 20px 15px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: 3px solid var(--bangla-gold);
+        }
+        
+        .bangla-header::before {
+            content: "🎮";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+        
+        .bangla-header::after {
+            content: "🏆";
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+        
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .bangla-subtitle {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            max-width: 100%;
+            margin: 0 auto;
+            line-height: 1.4;
+            font-weight: 400;
+        }
+        
+        /* গেম কার্ড - উন্নত ডিজাইন */
+        .game-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            border: 2px solid var(--bangla-gold);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        /* গেম মোড সিলেক্টর */
+        .game-mode {
+            display: flex;
+            background: var(--bangla-gray);
+            border-radius: 50px;
+            padding: 4px;
+            margin-bottom: 20px;
+            border: 2px solid var(--bangla-green);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mode-btn {
+            flex: 1;
+            padding: 14px 5px;
+            text-align: center;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+            color: var(--bangla-dark);
+        }
+        
+        .mode-btn.active {
+            color: white;
+            background: linear-gradient(135deg, var(--bangla-green) 0%, var(--bangla-dark-green) 100%);
+            box-shadow: 0 4px 15px rgba(0, 106, 78, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        /* গেম স্ট্যাটাস */
+        .game-status {
+            background: linear-gradient(135deg, var(--bangla-light-blue) 0%, #fce4ec 100%);
+            padding: 18px 15px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 15px 0;
+            border: 2px solid var(--bangla-blue);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-status::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--bangla-red), var(--bangla-blue));
+        }
+        
+        .current-player {
+            color: var(--bangla-red);
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            padding: 0 5px;
+        }
+        
+        /* গেম বোর্ড - সম্পূর্ণ মোবাইল ফ্রেন্ডলি */
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 25px auto;
+            max-width: min(90vw, 350px);
+            aspect-ratio: 1;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--bangla-light-gold) 0%, white 100%);
+            border-radius: 20px;
+            border: 3px solid var(--bangla-green);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cell {
+            background: white;
+            border: 3px solid var(--bangla-green);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            user-select: none;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cell::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.3) 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .cell:active {
+            transform: scale(0.95);
+            background: var(--bangla-light-blue);
+        }
+        
+        .cell:active::after {
+            opacity: 1;
+        }
+        
+        .cell.x {
+            color: var(--bangla-red);
+            text-shadow: 2px 2px 4px rgba(226, 24, 24, 0.2);
+        }
+        
+        .cell.o {
+            color: var(--bangla-blue);
+            text-shadow: 2px 2px 4px rgba(30, 136, 229, 0.2);
+        }
+        
+        /* স্কোর বোর্ড - উন্নত ডিজাইন */
+        .score-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 18px 12px;
+            border-radius: 20px;
+            margin: 20px 0;
+            border: 2px solid var(--bangla-gold);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .score {
+            text-align: center;
+            padding: 10px 5px;
+            background: white;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+        
+        .score:hover {
+            transform: translateY(-3px);
+        }
+        
+        .score-value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            display: block;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        
+        .score-label {
+            font-size: 0.8rem;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .score-x {
+            border-top: 4px solid var(--bangla-red);
+        }
+        
+        .score-x .score-value {
+            color: var(--bangla-red);
+        }
+        
+        .score-o {
+            border-top: 4px solid var(--bangla-blue);
+        }
+        
+        .score-o .score-value {
+            color: var(--bangla-blue);
+        }
+        
+        .score-tie {
+            border-top: 4px solid var(--bangla-green);
+        }
+        
+        .score-tie .score-value {
+            color: var(--bangla-green);
+        }
+        
+        /* কন্ট্রোল বাটন - মোবাইল ফ্রেন্ডলি */
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 25px;
+        }
+        
+        .btn {
+            padding: 16px 12px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            min-height: 55px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:active::after {
+            opacity: 1;
+        }
+        
+        .btn-new {
+            background: linear-gradient(135deg, var(--bangla-green), #00C853);
+            color: white;
+            grid-column: span 2;
+        }
+        
+        .btn-reset {
+            background: linear-gradient(135deg, var(--bangla-red), #FF5252);
+            color: white;
+        }
+        
+        .btn-share {
+            background: linear-gradient(135deg, var(--bangla-blue), #2979FF);
+            color: white;
+        }
+        
+        /* সোশ্যাল শেয়ার - উন্নত ডিজাইন */
+        .social-share {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border: 2px solid var(--bangla-gold);
+        }
+        
+        .social-btn {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .social-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .social-btn:active::after {
+            opacity: 1;
+        }
+        
+        .fb-btn {
+            background: linear-gradient(135deg, #1877F2, #0D5FBA);
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+        
+        /* কিভাবে খেলবেন - মোবাইল ফ্রেন্ডলি */
+        .how-to-play {
+            background: linear-gradient(135deg, var(--bangla-cream) 0%, white 100%);
+            padding: 20px;
+            border-radius: 20px;
+            margin-top: 20px;
+            border-left: 6px solid var(--bangla-green);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .how-to-play h3 {
+            color: var(--bangla-green);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .how-to-play ul {
+            padding-left: 20px;
+        }
+        
+        .how-to-play li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .how-to-play li::before {
+            content: "✓";
+            color: var(--bangla-green);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        /* ফুটার */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            border-top: 2px solid var(--bangla-gold);
+            color: white;
+            font-size: 0.85rem;
+            line-height: 1.5;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        /* ভিক্টরি মেসেজ - মডার্ন ডিজাইন */
+        .victory-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 20px;
+        }
+        
+        .victory-message.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .victory-content {
+            background: linear-gradient(135deg, white 0%, var(--bangla-cream) 100%);
+            padding: 30px 25px;
+            border-radius: 25px;
+            text-align: center;
+            max-width: 320px;
+            width: 100%;
+            animation: popIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 4px solid var(--bangla-gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .victory-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--bangla-red), var(--bangla-green), var(--bangla-blue));
+        }
+        
+        .victory-title {
+            font-size: 1.8rem;
+            color: var(--bangla-green);
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+        
+        .winner-symbol {
+            font-size: 4rem;
+            margin: 20px 0;
+            animation: celebrate 1s infinite alternate;
+        }
+        
+        .winner-symbol.x {
+            color: var(--bangla-red);
+        }
+        
+        .winner-symbol.o {
+            color: var(--bangla-blue);
+        }
+        
+        .victory-btn {
+            margin-top: 25px;
+            padding: 16px 30px;
+            background: linear-gradient(135deg, var(--bangla-green), var(--bangla-dark-green));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 6px 15px rgba(0, 106, 78, 0.3);
+        }
+        
+        .victory-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 8px rgba(0, 106, 78, 0.2);
+        }
+        
+        /* অ্যানিমেশন */
+        @keyframes popIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes celebrate {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+            100% {
+                transform: scale(1.2) rotate(10deg);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .winning-cell {
+            background: linear-gradient(135deg, #E8F5E9, #C8E6C9) !important;
+            animation: pulse 0.8s infinite !important;
+            border-color: var(--bangla-green) !important;
+            box-shadow: 0 0 20px rgba(0, 106, 78, 0.5) !important;
+        }
+        
+        /* অত্যাধুনিক রেসপন্সিভ ডিজাইন */
+        @media (max-width: 480px) {
+            body {
+                padding: 8px;
+            }
+            
+            .bangla-header {
+                padding: 18px 12px;
+                border-radius: 18px;
+            }
+            
+            h1 {
+                font-size: 1.7rem;
+            }
+            
+            .bangla-subtitle {
+                font-size: 0.9rem;
+            }
+            
+            .game-card {
+                padding: 18px;
+                border-radius: 22px;
+            }
+            
+            .game-board {
+                gap: 10px;
+                max-width: min(88vw, 320px);
+                border-width: 2px;
+            }
+            
+            .cell {
+                font-size: clamp(2.2rem, 7vw, 3.5rem);
+                border-width: 2.5px;
+            }
+            
+            .controls {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .btn-new {
+                grid-column: span 1;
+            }
+            
+            .score-board {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+                padding: 15px 10px;
+            }
+            
+            .score-value {
+                font-size: 1.8rem;
+            }
+            
+            .score-label {
+                font-size: 0.75rem;
+            }
+            
+            .social-share {
+                padding: 12px;
+            }
+            
+            .social-btn {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        @media (max-width: 350px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .game-board {
+                max-width: 280px;
+            }
+            
+            .cell {
+                font-size: clamp(2rem, 6vw, 3rem);
+            }
+            
+            .mode-btn {
+                padding: 12px 5px;
+                font-size: 0.85rem;
+            }
+            
+            .btn {
+                padding: 14px 10px;
+                min-height: 50px;
+                font-size: 0.95rem;
+            }
+            
+            .victory-content {
+                padding: 25px 20px;
+            }
+            
+            .victory-title {
+                font-size: 1.6rem;
+            }
+            
+            .winner-symbol {
+                font-size: 3.5rem;
+            }
+        }
+        
+        /* ল্যান্ডস্কেপ মোডের জন্য */
+        @media (orientation: landscape) and (max-height: 600px) {
+            .mobile-wrapper {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                align-items: start;
+            }
+            
+            .bangla-header {
+                grid-column: span 2;
+                margin-bottom: 10px;
+                padding: 15px;
+            }
+            
+            .game-card {
+                margin-bottom: 10px;
+            }
+            
+            .game-board {
+                max-width: 250px;
+                margin: 15px auto;
+            }
+            
+            .how-to-play {
+                margin-top: 0;
+            }
+        }
+        
+        /* ডার্ক মোড সাপোর্ট */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background: linear-gradient(135deg, #2C3E50 0%, #4A235A 100%);
+                color: #f0f0f0;
+            }
+            
+            .game-card,
+            .how-to-play {
+                background: rgba(30, 30, 30, 0.95);
+                color: #f0f0f0;
+            }
+            
+            .score-board,
+            .social-share {
+                background: rgba(40, 40, 40, 0.9);
+            }
+            
+            .cell {
+                background: #2a2a2a;
+            }
+            
+            footer {
+                background: rgba(0, 0, 0, 0.4);
+            }
+        }
+        
+        /* হাই কন্ট্রাস্ট মোড */
+        @media (prefers-contrast: high) {
+            .cell.x {
+                color: #ff0000;
+            }
+            
+            .cell.o {
+                color: #0000ff;
+            }
+        }
+        
+        /* রিডাক্সড মোশন */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-wrapper">
+        <!-- বাংলাদেশি হেডার -->
+        <header class="bangla-header">
+            <h1>🎮 টিক-ট্যাক-টো গেম 🎮</h1>
+            <p class="bangla-subtitle">বাংলাদেশি স্টাইলে তৈরি মজার গেম! বন্ধুর সাথে বা AI এর সাথে খেলুন</p>
+        </header>
+        
+        <!-- গেম কার্ড -->
+        <div class="game-card">
+            <!-- গেম মোড -->
+            <div class="game-mode">
+                <div class="mode-btn active" id="mode-2player">👥 দুই জনে খেলুন</div>
+                <div class="mode-btn" id="mode-computer">🤖 কম্পিউটারের সাথে</div>
+            </div>
+            
+            <!-- গেম স্ট্যাটাস -->
+            <div class="game-status" id="game-status">
+                এখন পালা: <span class="current-player" id="current-player">X</span>
+            </div>
+            
+            <!-- গেম বোর্ড -->
+            <div class="game-board" id="game-board">
+                <!-- জাভাস্ক্রিপ্ট দিয়ে তৈরি হবে -->
+            </div>
+            
+            <!-- স্কোর বোর্ড -->
+            <div class="score-board">
+                <div class="score score-x">
+                    <span class="score-value" id="score-x">0</span>
+                    <span class="score-label">এক্স জিতেছে</span>
+                </div>
+                
+                <div class="score score-tie">
+                    <span class="score-value" id="score-tie">0</span>
+                    <span class="score-label">ড্র গেম</span>
+                </div>
+                
+                <div class="score score-o">
+                    <span class="score-value" id="score-o">0</span>
+                    <span class="score-label">ও জিতেছে</span>
+                </div>
+            </div>
+            
+            <!-- কন্ট্রোল বাটন -->
+            <div class="controls">
+                <button class="btn btn-new" id="new-game">
+                    🔄 নতুন খেলা
+                </button>
+                <button class="btn btn-reset" id="reset-score">
+                    📊 স্কোর রিসেট
+                </button>
+                <button class="btn btn-share" id="share-game">
+                    📤 শেয়ার করুন
+                </button>
+            </div>
+            
+            <!-- সোশ্যাল শেয়ার -->
+            <div class="social-share">
+                <div class="social-btn fb-btn" id="share-fb">
+                    📘
+                </div>
+                <div class="social-btn whatsapp-btn" id="share-wa">
+                    💚
+                </div>
+            </div>
+        </div>
+        
+        <!-- কিভাবে খেলবেন -->
+        <div class="how-to-play">
+            <h3>📋 খেলার নিয়ম</h3>
+            <ul>
+                <li><strong>লক্ষ্য:</strong> প্রথমে ৩টা চিহ্ন একসাথে আনুন (সারি, কলাম বা তির্যক ভাবে)</li>
+                <li><strong>পালা:</strong> X এবং O পালাক্রমে বসান</li>
+                <li><strong>দুই জন মোড:</strong> বন্ধুর সাথে একসাথে খেলুন</li>
+                <li><strong>কম্পিউটার মোড:</strong> AI এর সাথে প্রতিযোগিতা করুন</li>
+                <li><strong>জয়:</strong> যে প্রথম ৩টা চিহ্ন একসাথে আনবে, সেই জিতবে!</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- ভিক্টরি মেসেজ -->
+    <div class="victory-message" id="victory-message">
+        <div class="victory-content">
+            <h2 class="victory-title" id="victory-title">জয়ী হলেন!</h2>
+            <div class="winner-symbol" id="winner-symbol">🏆</div>
+            <button class="victory-btn" id="play-again">আবার খেলুন</button>
+        </div>
+    </div>
+    
+    <!-- ফুটার -->
+    <footer>
+    <div class="footer-container">
+        <div class="footer-love">
+            <span class="heart">❤️</span>
+            <p class="footer-quote">"খেলাটা ছোট, মজাটা বড়!"</p>
+        </div>
+        
+        <div class="footer-info">
+            <p class="footer-made">
+                <span class="flag">🇧🇩</span> 
+                <strong>বাংলাদেশি স্টাইলে বানানো</strong> 
+                <span class="flag">🇧🇩</span>
+            </p>
+            <p class="footer-tagline">
+                আলাকার পোলাপানের জন্য 
+                <span class="emoji">😎</span> 
+                টাইম পাসের গেম
+            </p>
+        </div>
+        
+        <div class="footer-credit">
+            <p>© ২০২৬ -  জাহিদ হোসেন</p>
+            <p class="footer-note">
+                ফ্রিতে খেলুন, বন্ধুদের সাথে শেয়ার করুন 
+                <span class="share-emoji">📲</span>
+            </p>
+        </div>
+        
+        <div class="footer-final">
+            <p class="final-msg">
+                <span class="game-emoji">🎮</span> 
+                <strong>যেমন খেলা, তেমন মজা!</strong> 
+                <span class="game-emoji">🎯</span>
+            </p>
+            <p class="developer-note">
+                <small>বাংলাদেশের তরুনদের জন্য মজার প্রজেক্ট</small>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<style>
+    footer {
+        text-align: center;
+        margin-top: 30px;
+        padding: 25px 20px;
+        border-top: 3px solid var(--bangla-gold);
+        color: white;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        background: linear-gradient(135deg, rgba(0, 106, 78, 0.9) 0%, rgba(226, 24, 24, 0.9) 100%);
+        border-radius: 20px 20px 0 0;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: repeating-linear-gradient(
+            90deg,
+            var(--bangla-gold),
+            var(--bangla-gold) 10px,
+            transparent 10px,
+            transparent 20px
+        );
+    }
+    
+    .footer-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .footer-love {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px dashed rgba(255, 255, 255, 0.3);
+    }
+    
+    .footer-quote {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--bangla-light-gold);
+        font-style: italic;
+        margin-top: 8px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    
+    .heart {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 5px;
+        animation: heartbeat 1.5s infinite;
+    }
+    
+    @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+    
+    .footer-info {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px dashed rgba(255, 255, 255, 0.3);
+    }
+    
+    .footer-made {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .flag {
+        font-size: 1.5rem;
+        animation: waveFlag 3s infinite;
+    }
+    
+    @keyframes waveFlag {
+        0%, 100% { transform: rotate(0deg); }
+        25% { transform: rotate(-5deg); }
+        75% { transform: rotate(5deg); }
+    }
+    
+    .footer-tagline {
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .footer-credit {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px dashed rgba(255, 255, 255, 0.3);
+    }
+    
+    .footer-note {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 8px;
+    }
+    
+    .footer-final {
+        margin-top: 20px;
+    }
+    
+    .final-msg {
+        font-size: 1.3rem;
+        color: var(--bangla-light-gold);
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+    
+    .game-emoji {
+        font-size: 1.8rem;
+        animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+    
+    .developer-note {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.85rem;
+        margin-top: 10px;
+        font-style: italic;
+    }
+    
+    .emoji, .share-emoji {
+        animation: spin 4s infinite linear;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    @media (max-width: 480px) {
+        footer {
+            padding: 20px 15px;
+            border-radius: 15px 15px 0 0;
+        }
+        
+        .footer-quote {
+            font-size: 1.1rem;
+        }
+        
+        .final-msg {
+            font-size: 1.1rem;
+            gap: 10px;
+        }
+        
+        .footer-made {
+            font-size: 1rem;
+        }
+    }
+</style>
+
+    <!-- জাভাস্ক্রিপ্ট কোড একই থাকবে -->
+    <script>
+        // গেম স্টেট
+        const gameState = {
+            board: ['', '', '', '', '', '', '', '', ''],
+            currentPlayer: 'X',
+            gameActive: true,
+            gameMode: '2player',
+            scores: {
+                X: 0,
+                O: 0,
+                tie: 0
+            },
+            winningCombos: [
+                [0,1,2], [3,4,5], [6,7,8], // সারি
+                [0,3,6], [1,4,7], [2,5,8], // কলাম
+                [0,4,8], [2,4,6] // তির্যক
+            ]
+        };
+
+        // DOM এলিমেন্ট
+        const gameBoard = document.getElementById('game-board');
+        const gameStatus = document.getElementById('game-status');
+        const currentPlayerSpan = document.getElementById('current-player');
+        const scoreX = document.getElementById('score-x');
+        const scoreO = document.getElementById('score-o');
+        const scoreTie = document.getElementById('score-tie');
+        const victoryMessage = document.getElementById('victory-message');
+        const victoryTitle = document.getElementById('victory-title');
+        const winnerSymbol = document.getElementById('winner-symbol');
+
+        // ইনিশিয়ালাইজ গেম
+        function initGame() {
+            createBoard();
+            updateDisplay();
+            loadScores();
+            setupEventListeners();
+        }
+
+        // বোর্ড তৈরি
+        function createBoard() {
+            gameBoard.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.dataset.index = i;
+                cell.addEventListener('click', () => handleCellClick(i));
+                cell.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    handleCellClick(i);
+                }, {passive: false});
+                gameBoard.appendChild(cell);
+            }
+        }
+
+        // সেল ক্লিক হ্যান্ডলার
+        function handleCellClick(index) {
+            if (!gameState.gameActive || gameState.board[index] !== '') return;
+            
+            makeMove(index);
+            
+            // কম্পিউটার মোড হলে
+            if (gameState.gameMode === 'computer' && 
+                gameState.gameActive && 
+                gameState.currentPlayer === 'O') {
+                setTimeout(makeComputerMove, 600);
+            }
+        }
+
+        // মুভ করুন
+        function makeMove(index) {
+            gameState.board[index] = gameState.currentPlayer;
+            updateBoard();
+            
+            if (checkWin()) {
+                endGame(false);
+            } else if (checkDraw()) {
+                endGame(true);
+            } else {
+                gameState.currentPlayer = gameState.currentPlayer === 'X' ? 'O' : 'X';
+                updateDisplay();
+            }
+        }
+
+        // কম্পিউটার মুভ
+        function makeComputerMove() {
+            // সহজ AI: জিতার চেষ্টা -> ব্লক করা -> র‍্যান্ডম মুভ
+            let move = findWinningMove('O');
+            if (move === -1) move = findWinningMove('X');
+            if (move === -1) move = findBestMove();
+            if (move !== -1) makeMove(move);
+        }
+
+        // জিতার মুভ খুঁজুন
+        function findWinningMove(player) {
+            for (let combo of gameState.winningCombos) {
+                const [a, b, c] = combo;
+                const board = gameState.board;
+                
+                if (board[a] === player && board[b] === player && board[c] === '') return c;
+                if (board[a] === player && board[c] === player && board[b] === '') return b;
+                if (board[b] === player && board[c] === player && board[a] === '') return a;
+            }
+            return -1;
+        }
+
+        // বেস্ট মুভ খুঁজুন
+        function findBestMove() {
+            // প্রথমে মাঝখানে
+            if (gameState.board[4] === '') return 4;
+            
+            // তারপর কোনায়
+            const corners = [0, 2, 6, 8];
+            const emptyCorners = corners.filter(i => gameState.board[i] === '');
+            if (emptyCorners.length > 0) {
+                return emptyCorners[Math.floor(Math.random() * emptyCorners.length)];
+            }
+            
+            // শেষে বাকি ঘর
+            const available = gameState.board
+                .map((cell, idx) => cell === '' ? idx : -1)
+                .filter(idx => idx !== -1);
+            
+            return available.length > 0 ? 
+                available[Math.floor(Math.random() * available.length)] : -1;
+        }
+
+        // জয় চেক করুন
+        function checkWin() {
+            for (let combo of gameState.winningCombos) {
+                const [a, b, c] = combo;
+                if (gameState.board[a] && 
+                    gameState.board[a] === gameState.board[b] && 
+                    gameState.board[a] === gameState.board[c]) {
+                    
+                    // জেতা ঘর হাইলাইট
+                    combo.forEach(idx => {
+                        document.querySelector(`.cell[data-index="${idx}"]`)
+                            .classList.add('winning-cell');
+                    });
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // ড্র চেক করুন
+        function checkDraw() {
+            return !gameState.board.includes('');
+        }
+
+        // গেম শেষ
+        function endGame(isDraw) {
+            gameState.gameActive = false;
+            
+            if (isDraw) {
+                gameState.scores.tie++;
+                showVictoryMessage('ড্র গেম! 😐', '🤝');
+            } else {
+                const winner = gameState.currentPlayer;
+                gameState.scores[winner]++;
+                showVictoryMessage(
+                    winner === 'X' ? 'এক্স জিতেছে! 🎉' : 'ও জিতেছে! 🎊',
+                    winner
+                );
+            }
+            
+            updateScores();
+            saveScores();
+        }
+
+        // জয়ের মেসেজ দেখান
+        function showVictoryMessage(title, symbol) {
+            victoryTitle.textContent = title;
+            winnerSymbol.textContent = symbol;
+            winnerSymbol.className = `winner-symbol ${symbol.toLowerCase()}`;
+            victoryMessage.classList.add('active');
+            
+            // ভাইব্রেশন (যদি সাপোর্ট করে)
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 100]);
+            }
+        }
+
+        // বোর্ড আপডেট
+        function updateBoard() {
+            gameState.board.forEach((cell, index) => {
+                const cellElement = document.querySelector(`.cell[data-index="${index}"]`);
+                cellElement.textContent = cell;
+                cellElement.className = 'cell';
+                if (cell) cellElement.classList.add(cell.toLowerCase());
+            });
+        }
+
+        // ডিসপ্লে আপডেট
+        function updateDisplay() {
+            currentPlayerSpan.textContent = gameState.currentPlayer;
+            currentPlayerSpan.style.color = gameState.currentPlayer === 'X' ? 
+                'var(--bangla-red)' : 'var(--bangla-blue)';
+            
+            let statusText = `এখন পালা: `;
+            if (gameState.gameMode === 'computer' && gameState.currentPlayer === 'O') {
+                statusText = `কম্পিউটার ভাবছে... 🤔`;
+            }
+            gameStatus.innerHTML = statusText + `<span class="current-player">${gameState.currentPlayer}</span>`;
+        }
+
+        // স্কোর আপডেট
+        function updateScores() {
+            scoreX.textContent = gameState.scores.X;
+            scoreO.textContent = gameState.scores.O;
+            scoreTie.textContent = gameState.scores.tie;
+        }
+
+        // নিউ গেম
+        function newGame() {
+            gameState.board = ['', '', '', '', '', '', '', '', ''];
+            gameState.currentPlayer = 'X';
+            gameState.gameActive = true;
+            updateBoard();
+            updateDisplay();
+            victoryMessage.classList.remove('active');
+        }
+
+        // স্কোর রিসেট
+        function resetScores() {
+            if (confirm('স্কোর রিসেট করতে চান?')) {
+                gameState.scores = { X: 0, O: 0, tie: 0 };
+                updateScores();
+                saveScores();
+            }
+        }
+
+        // গেম মোড পরিবর্তন
+        function setGameMode(mode) {
+            gameState.gameMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`mode-${mode}`).classList.add('active');
+            newGame();
+        }
+
+        // শেয়ার ফাংশন
+        function shareGame() {
+            const text = `আমি টিক-ট্যাক-টো গেম খেলছি! স্কোর: X=${gameState.scores.X}, O=${gameState.scores.O}, ড্র=${gameState.scores.tie}। তুমিও খেলো: ${window.location.href}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'টিক-ট্যাক-টো গেম',
+                    text: text,
+                    url: window.location.href
+                });
+            } else {
+                navigator.clipboard.writeText(text);
+                alert('লিংক কপি করা হয়েছে! 📋\nফেসবুক/হোয়াটসঅ্যাপে পেস্ট করুন।');
+            }
+        }
+
+        // ফেসবুকে শেয়ার
+        function shareToFacebook() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent('আমি টিক-ট্যাক-টো গেম খেলছি! তুমিও খেলো');
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}&quote=${text}`, '_blank');
+        }
+
+        // হোয়াটসঅ্যাপে শেয়ার
+        function shareToWhatsApp() {
+            const text = encodeURIComponent(`🎮 টিক-ট্যাক-টো গেম খেলুন!\n${window.location.href}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        }
+
+        // লোকাল স্টোরেজে সংরক্ষণ
+        function saveScores() {
+            localStorage.setItem('banglaTicTacToeScores', JSON.stringify(gameState.scores));
+        }
+
+        // লোকাল স্টোরেজ থেকে লোড
+        function loadScores() {
+            const saved = localStorage.getItem('banglaTicTacToeScores');
+            if (saved) {
+                gameState.scores = JSON.parse(saved);
+                updateScores();
+            }
+        }
+
+        // ইভেন্ট লিসেনার সেটআপ
+        function setupEventListeners() {
+            // গেম মোড
+            document.getElementById('mode-2player').addEventListener('click', () => setGameMode('2player'));
+            document.getElementById('mode-computer').addEventListener('click', () => setGameMode('computer'));
+            
+            // বাটন
+            document.getElementById('new-game').addEventListener('click', newGame);
+            document.getElementById('reset-score').addEventListener('click', resetScores);
+            document.getElementById('share-game').addEventListener('click', shareGame);
+            document.getElementById('share-fb').addEventListener('click', shareToFacebook);
+            document.getElementById('share-wa').addEventListener('click', shareToWhatsApp);
+            document.getElementById('play-again').addEventListener('click', newGame);
+            
+            // টাচ ইভেন্ট অপটিমাইজেশন
+            document.addEventListener('touchmove', (e) => {
+                if (e.scale !== 1) e.preventDefault();
+            }, { passive: false });
+        }
+
+        // গেম শুরু
+        window.addEventListener('DOMContentLoaded', initGame);
+        
+        // PWA ফিচারস
+        window.addEventListener('load', () => {
+            // অফলাইন সাপোর্ট
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js').catch(console.error);
+            }
+            
+            // Install prompt
+            let deferredPrompt;
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                // এখানে ইন্সটল বাটন দেখাতে পারেন
+            });
+        });
+    </script>
+</body>
+</html>
