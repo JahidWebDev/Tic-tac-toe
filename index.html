@@ -2,7 +2,7 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>টিক-ট্যাক-টো গেম | বাংলাদেশি স্টাইলে | ফ্রি মোবাইল গেম</title>
     <meta name="description" content="টিক-ট্যাক-টো গেম খেলুন বাংলাদেশি স্টাইলে! বন্ধুর সাথে বা কম্পিউটারের সাথে খেলুন। আলাকার পোলাপানের জন্য মজার গেম।">
     <meta name="keywords" content="tic-tac-toe bangla, xo game, mobile game, free game, bangladeshi game, টিক ট্যাক টো, মোবাইল গেম">
@@ -44,17 +44,18 @@
         }
         
         html {
-            height: 100%;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
-            min-height: 100vh;
+            min-height: 100%;
             padding: 10px;
             overflow-x: hidden;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
         }
@@ -65,6 +66,7 @@
             max-width: 100%;
             margin: 0 auto;
             width: 100%;
+            min-height: fit-content;
         }
         
         /* বাংলাদেশি হেডার - মোবাইল অপ্টিমাইজড */
@@ -1109,7 +1111,7 @@
     }
 </style>
 
-    <!-- জাভাস্ক্রিপ্ট কোড একই থাকবে -->
+    <!-- জাভাস্ক্রিপ্ট কোড -->
     <script>
         // গেম স্টেট
         const gameState = {
